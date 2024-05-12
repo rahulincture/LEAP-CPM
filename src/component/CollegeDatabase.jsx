@@ -135,6 +135,7 @@ const CandidateTable = () => {
     const fetchData = async () => {
       setIsLoading(true)
       try {
+        console.log(`${colBaseUrl}/admin/viewData`)
         const response = await fetch(`${colBaseUrl}/admin/viewData`)
         const data = await response.json()
         setCollegeList(data)

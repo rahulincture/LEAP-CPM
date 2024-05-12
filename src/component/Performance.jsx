@@ -31,10 +31,11 @@ const Perfromancetable = () => {
   const [rowDelete, setRowDelete] = useState(null)
   const [openSnackbar, setOpenSnackbar] = useState(null)
   const perBaseUrl = "http://172.20.10.3:8080"
-  
   useEffect(() => {
     const fetchUsers = async () => {
       try {
+        console.log(`${perBaseUrl}/cpm/performance/getAllPerformance`)
+        console.log(`${perBaseUrl}/cpm/performance/getAllPerformance`)
         const response = await fetch(
           `${perBaseUrl}/cpm/performance/getAllPerformance`,
         )
@@ -43,7 +44,7 @@ const Perfromancetable = () => {
         }
         const data = await response.json()
 
-        // Transform the data to the desired format
+
         const formattedData = data.map(item => ({
           talentId: item.talentId,
           fullName: item.talentName,
@@ -67,7 +68,7 @@ const Perfromancetable = () => {
     }
 
     fetchUsers()
-  }, [datax])
+  }, [])
   const handleClose = (event, reason) => {
     if (reason === 'clickaway') {
       return
@@ -419,7 +420,7 @@ const Perfromancetable = () => {
       // Assuming setDatax and table.setCreatingRow are defined elsewhere
       setOpenSnackbar('Employee updated successfully!')
       setError(null)
-      setDatax([])
+      
       table.setCreatingRow(null)
     } catch (error) {
       setError(error.message)
@@ -453,7 +454,7 @@ const Perfromancetable = () => {
     setOpenSnackbar(null)
     try {
       const response = await fetch(
-        `${perBaseUrl}/cpm/performance/updateFeedback`,
+        'http://localhost:8080/cpm/performance/updateFeedback',
         {
           method: 'POST',
           headers: {
@@ -469,12 +470,11 @@ const Perfromancetable = () => {
       // Assuming setDatax and table.setCreatingRow are defined elsewhere
       setOpenSnackbar('Employee edited successfully!')
       setError(null)
-      setDatax([])
+     
       table.setEditingRow(null)
     } catch (error) {
       setError(error.message)
     }
-    window.location.reload();
   }
 
   const handleDelete = async () => {
@@ -510,10 +510,12 @@ const Perfromancetable = () => {
         setOpenDeleteModal(false)
         console.log('Performance deleted successfully')
         // Perform any additional actions (e.g., update UI)
-        setDatax([])
-      }
+        
+      
+        setDatax(prevData => prevData.filter(row => row.talentId !== performanceData.talentId));
       setOpenSnackbar('Employee deleted successfully!')
       setError(null)
+      }
     } catch (error) {
       setError(error.message)
     } finally {
@@ -533,32 +535,8 @@ const Perfromancetable = () => {
         minHeight: '500px',
       },
     },
-    onCreatingRowCancel: () => setValidationErrors({}),
-    onCreatingRowSave: handleCreateUser,
     onEditingRowCancel: () => setValidationErrors({}),
     onEditingRowSave: handleSaveUser,
-    //optionally customize modal content
-    renderCreateRowDialogContent: ({ table, row, internalEditComponents }) => (
-      <>
-        <DialogTitle
-          variant='h3'
-          className='font-bold text-3xl text-blue-500 mb-4'
-        >
-          Create New User
-        </DialogTitle>
-        <DialogContent
-          sx={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}
-        >
-          <Typography variant='subtitle1'>Enter user details:</Typography>
-          {internalEditComponents}{' '}
-          {/* This will render the default edit components */}
-          {/* Add custom fields here */}
-        </DialogContent>
-        <DialogActions>
-          <MRT_EditActionButtons variant='text' table={table} row={row} />
-        </DialogActions>
-      </>
-    ),
 
     // Custom renderEditRowDialogContent
     renderEditRowDialogContent: ({ table, row, internalEditComponents }) => (
@@ -601,22 +579,7 @@ const Perfromancetable = () => {
         </Tooltip>
       </Box>
     ),
-    renderTopToolbarCustomActions: ({ table }) => (
-      <Button
-        variant='contained'
-        onClick={() => {
-          table.setCreatingRow(true) //simplest way to open the create row modal with no default values
-          //or you can pass in a row object to set default values with the `createRow` helper function
-          // table.setCreatingRow(
-          //   createRow(table, {
-          //     //optionally pass in default values for the new row, useful for nested data or other complex scenarios
-          //   }),
-          // );
-        }}
-      >
-        Create New User
-      </Button>
-    ),
+    
   })
 
   return (
