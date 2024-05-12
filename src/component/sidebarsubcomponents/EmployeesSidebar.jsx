@@ -30,39 +30,21 @@ export default function EmployeesSidebar({ setShowEmployeesSidebar }) {
             <Sidebar.Item as={'div'} label='Admin' labelColor='dark'>
               Rahul Kumar
             </Sidebar.Item>
-            <Sidebar.Collapse label='Attendance'>
-              <Link to='#'>
-                <Sidebar.Item as={'div'}>FTE&apos;s</Sidebar.Item>
-              </Link>
-              <Link to='#'>
-                <Sidebar.Item as={'div'}>Interns</Sidebar.Item>
-              </Link>
-              <Link to='#'>
-                <Sidebar.Item as={'div'}>Trainee</Sidebar.Item>
-              </Link>
-              <Link to='#'>
-                <Sidebar.Item as={'div'}>Online Interns</Sidebar.Item>
-              </Link>
-            </Sidebar.Collapse>
+            <Link to='/dashboard?tab=attendance'>
+              <Sidebar.Item as={'div'} active={tab === 'attendance'}>
+                Attendance
+              </Sidebar.Item>
+            </Link>
             <Sidebar.Collapse label='Leave'>
               <Link to='#'>
                 <Sidebar.Item as={'div'}>Interns</Sidebar.Item>
               </Link>
             </Sidebar.Collapse>
-            <Sidebar.Collapse label='Performance'>
-              <Link to='#'>
-                <Sidebar.Item as={'div'}>FTE&apos;s</Sidebar.Item>
-              </Link>
-              <Link to='#'>
-                <Sidebar.Item as={'div'}>Interns</Sidebar.Item>
-              </Link>
-              <Link to='#'>
-                <Sidebar.Item as={'div'}>Trainee</Sidebar.Item>
-              </Link>
-              <Link to='#'>
-                <Sidebar.Item as={'div'}>Online Interns</Sidebar.Item>
-              </Link>
-            </Sidebar.Collapse>
+            <Link to='?tab=performance'>
+              <Sidebar.Item as={'div'} active={tab === 'performance'}>
+                Performance
+              </Sidebar.Item>
+            </Link>
             <Link to='?tab=talent'>
               <Sidebar.Item as={'div'} active={tab === 'talent'}>
                 Talent

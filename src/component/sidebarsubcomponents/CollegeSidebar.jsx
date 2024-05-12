@@ -8,7 +8,6 @@ export default function CollegeSidebar({ setShowCollegeSidebar }) {
 
   useEffect(() => {
     const urlParams = new URLSearchParams(location.search)
-    console.log(urlParams);
     const tabFromUrl = urlParams.get('tab')
     if (tabFromUrl) {
       setTab(tabFromUrl)
@@ -29,9 +28,8 @@ export default function CollegeSidebar({ setShowCollegeSidebar }) {
         <Sidebar.Items>
           <Sidebar.ItemGroup>
             <Sidebar.Item as={'div'} label='Admin' labelColor='dark'>
-              Rahul Kumar
+              Prashant Bisht
             </Sidebar.Item>
-
             <Link to='?tab=college-and-contact'>
               <Sidebar.Item as={'div'} active={tab === 'college-and-contact'}>
                 College and contact
@@ -46,7 +44,7 @@ export default function CollegeSidebar({ setShowCollegeSidebar }) {
               <Sidebar.Item as={'div'} active={tab === 'candidates'}>
                 Candidates
               </Sidebar.Item>
-            </Link>
+            </Link>c
             
           </Sidebar.ItemGroup>
         </Sidebar.Items>

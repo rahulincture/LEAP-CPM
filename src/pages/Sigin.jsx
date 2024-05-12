@@ -1,21 +1,36 @@
-import { Link } from 'react-router-dom';
+import { Link, Navigate, useNavigate } from 'react-router-dom'; // Import useHistory hook
 import { useState } from 'react';
 import { TextInput, Button, Checkbox, Label, Spinner } from 'flowbite-react';
 import { RiCompassDiscoverFill } from 'react-icons/ri';
 import { HiCheck } from 'react-icons/hi';
 
 function Signin() {
+    const navigate = useNavigate();
     const [isPasswordVisible, setIsPasswordVisible] = useState(false);
     const [password, setPassword] = useState('');
     const [email, setEmail] = useState('');
     const [isLoading, setIsLoading] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
-
+    const history = useNavigate(); // Access history for redirection
+    const signBaseUrl = "http://172.20.10.8:3057"
     const handleSubmit = async (e) => {
         e.preventDefault();
         setIsLoading(true);
         try {
-            // Mock authentication logic
+            const response = await fetch(`${signBaseUrl}/user/login`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ email, password }),
+            });
+            if (response.ok) {
+                // Redirect to dashboard upon successful authentication
+                navigate('/dashboard');
+            } else {
+                setIsLoading(false);
+                setErrorMessage('Invalid email or password. Please try again.');
+            }
             setTimeout(() => {
                 setIsLoading(false);
                 setErrorMessage('Invalid email or password. Please try again.');
@@ -26,7 +41,7 @@ function Signin() {
     };
 
     return (
-        <div className=" flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+        <div className="flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
             <div className="max-w-md w-full space-y-8">
                 <div>
                     <img
@@ -48,7 +63,7 @@ function Signin() {
                                 onChange={(e) => setEmail(e.target.value)}
                                 required
                                 autoFocus
-                                className="appearance-none rounded-none relative block w-full  placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm mb-3"
+                                className="appearance-none rounded-none relative block w-full placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm mb-3"
                             />
                         </div>
                         <div>
@@ -65,21 +80,13 @@ function Signin() {
                         </div>
                     </div>
 
-                    <div className="flex items-center justify-between mt-2">
-                        <div className="flex items-center">
-                            <Checkbox
-                                onClick={() => setIsPasswordVisible(!isPasswordVisible)}
-                                checked={isPasswordVisible}
-                                className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
-                            />
-                            <Label value="Show password" className="ml-2 text-sm text-gray-600" />
-                        </div>
-
-                        {/* <div className="text-sm">
-                            <Link to="/forgot-password" className="font-medium text-indigo-600 hover:text-indigo-500">
-                                Forgot your password?
-                            </Link>
-                        </div> */}
+                    <div className="flex items-center">
+                        <Checkbox
+                            onChange={() => setIsPasswordVisible(!isPasswordVisible)}
+                            checked={isPasswordVisible}
+                            className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
+                        />
+                        <Label value="Show password" className="ml-2 text-sm text-gray-600" />
                     </div>
 
                     <div>
@@ -98,9 +105,9 @@ function Signin() {
                     <p className="mt-2 text-sm text-red-600 text-center">{errorMessage}</p>
                 )}
 
-                <p className=" text-sm text-gray-600 text-center">
+                <p className="text-sm text-gray-600 text-center">
                     Don&apos;t have an account?{' '}
-                    <Link to='/signup' className="font-medium text-indigo-600 hover:text-indigo-500">
+                    <Link to='/sign-up' className="font-medium text-indigo-600 hover:text-indigo-500">
                         Sign up
                     </Link>
                 </p>

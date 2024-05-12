@@ -11,9 +11,10 @@ function App() {
       <Header />
 
       <Routes>
-        <Route path={'/'} element={<Dashboard />} />
-        <Route path={'/signin'} element={<Signin />} />
-        <Route path={'/signup'} element={<Signup  />} />
+        <Route path={'/'} element={<Signin />} />
+        <Route path={'/dashboard'} element={<Dashboard />} />
+        <Route path={'/sign-in'} element={<Signin />} />
+        <Route path={'/sign-up'} element={<Signup />} />
         <Route path={'/check'} element={<EmpAssignment />} />
       </Routes>
     </>

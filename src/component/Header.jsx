@@ -20,7 +20,7 @@ export default function Header() {
           </span>
         </Navbar.Brand>
         <div className='flex md:order-2'>
-          <span className='text-md my-auto mr-2'>Hi, Rahul Kumar</span>
+          <span className='text-md my-auto mr-2'>Hi, Prashant Bisht</span>
           <Dropdown
             arrowIcon={false}
             inline
@@ -35,7 +35,7 @@ export default function Header() {
             <Dropdown.Header>
               <span className='block text-sm'>INC02763</span>
               <span className='block truncate text-sm font-medium'>
-                rahulkumar@incture.com
+                prashant.bisht@incture.com
               </span>
             </Dropdown.Header>
             <Dropdown.Item icon={TbLogout} className='text-red-500 font-medium'>

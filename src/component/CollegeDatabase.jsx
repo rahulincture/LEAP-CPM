@@ -22,7 +22,7 @@ import DeleteIcon from '@mui/icons-material/Delete'
 
 
 //Module completed testing done
-
+const colBaseUrl = "http://172.20.10.3:8080"
 const CandidateTable = () => {
   const [collegeList, setCollegeList] = useState([])
   const [isLoading, setIsLoading] = useState(true)
@@ -135,7 +135,7 @@ const CandidateTable = () => {
     const fetchData = async () => {
       setIsLoading(true)
       try {
-        const response = await fetch('http://localhost:3057/admin/viewData')
+        const response = await fetch(`${colBaseUrl}/admin/viewData`)
         const data = await response.json()
         setCollegeList(data)
       } catch (error) {
@@ -156,7 +156,7 @@ const CandidateTable = () => {
 
     try {
       const response = await fetch(
-        'http://localhost:3057/admin/insertCollegeData',
+        `${colBaseUrl}/admin/insertCollegeData`,
         {
           method: 'POST',
           headers: {
@@ -185,7 +185,7 @@ const CandidateTable = () => {
     setOpenSnackbar(null)
     try {
       const response = await fetch(
-        `http://localhost:3057/admin/updateData/${parseInt(
+        `${colBaseUrl}/admin/updateData/${parseInt(
           collegeToUpdate.collegeId,
         )}`,
         {
@@ -223,7 +223,7 @@ const CandidateTable = () => {
     setOpenSnackbar(null)
     try {
       const response = await fetch(
-        `http://localhost:3057/admin/deleteData/${collegeId}`,
+        `${colBaseUrl}/admin/deleteData/${collegeId}`,
         {
           method: 'DELETE',
         },
@@ -648,3 +648,4 @@ const CandidateTable = () => {
 }
 
 export default CandidateTable
+  
